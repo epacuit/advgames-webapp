@@ -105,8 +105,8 @@ function Panel({ title, current, total, data, cursorX }: {
           <YAxis domain={[0, total]} allowDecimals={false}
                  width={28} tick={{ fontSize: 10 }} />
           <Tooltip
-            labelFormatter={(v: number) => `round ${v.toLocaleString()}`}
-            formatter={(val: any, key: string) => [val, key]}
+            labelFormatter={(v: any) => `round ${Number(v).toLocaleString()}`}
+            formatter={(val: any, key: any) => [val, String(key)]}
             contentStyle={{ fontSize: 11 }} />
           <Area type="stepAfter" dataKey="cn"    stackId="1"
                 stroke="none" fill={C_COLOR} fillOpacity={0.85}

@@ -398,8 +398,8 @@ function ResultView({ r }: { r: RunResponse }) {
             <XAxis dataKey="t" type="number" domain={['dataMin', 'dataMax']}
                    tickFormatter={(v: number) => v >= 10000 ? `${Math.round(v/1000)}k` : String(v)} />
             <YAxis domain={[NORM_STRIP.yMin, 1]} ticks={[0, 0.25, 0.5, 0.75, 1]} />
-            <Tooltip labelFormatter={(v: number) => `round ${v.toLocaleString()}`}
-                     formatter={(v: number) => v.toFixed(3)} />
+            <Tooltip labelFormatter={(v: any) => `round ${Number(v).toLocaleString()}`}
+                     formatter={(v: any) => Number(v).toFixed(3)} />
             <Legend verticalAlign="top" height={24} iconType="plainline" />
 
             {coopBands.map((b, i) => (

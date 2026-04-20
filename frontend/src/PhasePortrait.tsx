@@ -22,8 +22,10 @@ const CELL_COLOR = '#1e3a8a';    // navy — neutral, distinct from R/G
 const START_STROKE = '#1e3a8a';
 const END_FILL = '#1e3a8a';
 
-export function PhasePortrait({ rounds, prAdvCoop, avgIncl }: {
-  rounds: number[];
+export function PhasePortrait({ prAdvCoop, avgIncl }: {
+  // `rounds` used to be a prop but is no longer needed since the round label
+  // was removed. Kept the variable name in callers for clarity.
+  rounds?: number[];
   prAdvCoop: number[];
   avgIncl: number[];
 }) {

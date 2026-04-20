@@ -95,18 +95,16 @@ export function AgentChart({ rounds, agents, inCnNorm, inUnNorm }: {
                  tickFormatter={(v: number) => v >= 10000 ? `${Math.round(v/1000)}k` : String(v)} />
           <YAxis domain={[NORM_STRIP.yMin, 1]} ticks={[0, 0.25, 0.5, 0.75, 1]} />
           <Tooltip
-            labelFormatter={(v: number) => `round ${v.toLocaleString()}`}
-            formatter={(val: any, key: string) => {
+            labelFormatter={(v: any) => `round ${Number(v).toLocaleString()}`}
+            formatter={(val: any, key: any) => {
               if (val === null || val === undefined) return ['', ''];
-              const m = /^a(\d+)_([CD])$/.exec(key);
-              if (!m) return [String(val), key];
+              const m = /^a(\d+)_([CD])$/.exec(String(key));
+              if (!m) return [String(val), String(key)];
+              // When an agent is locked/hovered, hide rows for other agents
+              // (Recharts Tooltip has no `filter` prop; returning empty
+              // strings makes the row render blank instead).
+              if (activeId !== null && Number(m[1]) !== activeId) return ['', ''];
               return [Number(val).toFixed(3), `agent ${m[1]} (${m[2]})`];
-            }}
-            filter={(item: any) => {
-              // When an agent is active, hide tooltip rows for other agents.
-              if (activeId === null) return true;
-              const m = /^a(\d+)_/.exec(item.dataKey);
-              return m ? Number(m[1]) === activeId : false;
             }}
             itemSorter={(it: any) => Number(it.value ?? 0)}
           />
