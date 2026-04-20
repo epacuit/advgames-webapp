@@ -110,7 +110,7 @@ Two options.
 2. **Branch to deploy**: `main`
 3. **Base directory**: `frontend`
 4. **Build command**: `npm ci && npm run build`
-5. **Publish directory**: `frontend/dist`  *(path from the repo root — Netlify's UI is literal about this field, despite the Base directory setting)*
+5. **Publish directory**: type just `dist` — Netlify's form prepends the Base directory automatically, so the resolved value shown will be `frontend/dist`.
 6. No env vars needed — `.env.production` already bakes `VITE_API_URL=https://api.advgames.pacuit.org` into the build.
 7. Site settings → **Domain management** → add `advgames.pacuit.org`. Netlify gives you a CNAME target and (optionally) a TXT record for verification. Set the CNAME from Step 1.
 
