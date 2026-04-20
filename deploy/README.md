@@ -107,11 +107,12 @@ Two options.
 ### A. Git-linked site (recommended — auto-deploys on push)
 
 1. Netlify → **Add new site → Import from Git** → pick `advgames-webapp`.
-2. **Base directory**: `frontend`
-3. **Build command**: `npm ci && npm run build`
-4. **Publish directory**: `frontend/dist`
-5. No env vars needed — `.env.production` already bakes `VITE_API_URL=https://api.advgames.pacuit.org` into the build.
-6. Site settings → **Domain management** → add `advgames.pacuit.org`. Netlify gives you a CNAME target and (optionally) a TXT record for verification. Set the CNAME from Step 1.
+2. **Branch to deploy**: `main`
+3. **Base directory**: `frontend`
+4. **Build command**: `npm ci && npm run build`
+5. **Publish directory**: `frontend/dist`  *(path from the repo root — Netlify's UI is literal about this field, despite the Base directory setting)*
+6. No env vars needed — `.env.production` already bakes `VITE_API_URL=https://api.advgames.pacuit.org` into the build.
+7. Site settings → **Domain management** → add `advgames.pacuit.org`. Netlify gives you a CNAME target and (optionally) a TXT record for verification. Set the CNAME from Step 1.
 
 ### B. CLI deploy
 
