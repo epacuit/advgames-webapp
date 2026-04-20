@@ -1,0 +1,40 @@
+# /etc/systemd/system/advgames-sim.service
+# Install with:
+#   sudo cp advgames-sim.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now advgames-sim
+#
+# Runs as the `eric` admin user; the app lives at /home/eric/apps/advgames
+# (matching the convention for the other apps on this box).
+
+[Unit]
+Description=Advocacy Games simulation HTTP server (Julia + Oxygen)
+After=network.target
+
+[Service]
+Type=simple
+User=eric
+Group=eric
+WorkingDirectory=/home/eric/apps/advgames/backend
+Environment="SIM_HOST=127.0.0.1"
+Environment="SIM_PORT=8080"
+# Comma-separated allowlist. Leave unset to use the defaults in server.jl
+# (production frontend + local dev origins).
+Environment="SIM_CORS_ORIGINS=https://advgames.pacuit.org,http://localhost:5173,http://localhost:3000"
+Environment="JULIA_NUM_THREADS=auto"
+# Pin memory before the kernel OOM-kills us (adjust for VPS size).
+MemoryMax=3G
+ExecStart=/usr/local/bin/julia --project=. -t auto server.jl
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=300
+
+# Hardening — service has no reason to write outside its working dir.
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/eric/apps/advgames
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

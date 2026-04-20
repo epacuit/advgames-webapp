@@ -1,0 +1,21 @@
+# Node / Vite
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Julia — note: backend/Project.toml and backend/Manifest.toml ARE committed
+# deliberately so the deployed server uses the exact versions we developed
+# against.

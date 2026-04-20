@@ -1,0 +1,25 @@
+# Add this block to your /etc/caddy/Caddyfile, then `sudo systemctl reload caddy`.
+#
+# In the split-deploy setup, Caddy only fronts the **backend** API. The
+# frontend (static bundle) is hosted separately on Netlify at
+# https://advgames.pacuit.org — nothing to serve here for that.
+
+api.advgames.pacuit.org {
+    reverse_proxy 127.0.0.1:8080 {
+        # 500K runs can take ~10-13s on a CX22; give plenty of headroom.
+        transport http {
+            response_header_timeout 60s
+            read_timeout 60s
+        }
+    }
+
+    encode zstd gzip
+
+    # Optional: basic rate limiting (requires caddy-ratelimit plugin).
+    # rate_limit 10r/m
+
+    log {
+        output file /var/log/caddy/advgames-api.log
+        format console
+    }
+}
